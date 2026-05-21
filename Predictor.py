@@ -57,7 +57,7 @@ if st.button("Predict"):
     if predicted_class == 1:
         advice =(
             f"根据我们的模型，该患者本次卒中预后不良的风险较高。 "
-            f"具体预后不良的可能性为 {probability:.1f}%。"
+            f"具体预后不良的可能性为 {probability:.1f}%，"
             "建议进一步评估该患者的风险因素，针对性加强预防与治疗干预措施。"
         )
 
@@ -65,7 +65,7 @@ if st.button("Predict"):
     else:
         advice =(
             f"根据我们的模型，该患者本次卒中预后不良的风险较低。"
-            f"具体预后不良的可能性为 {probability:.1f}%."
+            f"具体预后不良的可能性为 {probability:.1f}%，"
             "但继续保持健康的生活习惯仍是必要的，请定期至医院体检并规律服用药物。"
         )
     # 显示建议

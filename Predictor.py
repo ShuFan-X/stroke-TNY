@@ -73,7 +73,8 @@ if st.button("Predict"):
     # SHAP 解释
     st.subheader("SHAP 力图解释")
     explainer_shap = shap.TreeExplainer(model)
-
+    plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'DejaVu Sans']
+    plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
     
     explainer = shap.TreeExplainer(model)  # 直接传入模型
     shap_values = explainer.shap_values(x_test)   # 或 explainer(x_test) 返回 Explanation 对象
@@ -94,7 +95,7 @@ if st.button("Predict"):
     if predicted_class == 1:
         #shap.plots.force(explainer_shap.expected_value[1],shap_values[:,:,1], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
         shap.force_plot(expected_value_class, 
-                        shap_values_class[0, :],           # 一维 SHAP 值
+                        shap_values_class[1, :],           # 一维 SHAP 值
                         pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
                         matplotlib=True,
                         show=True
@@ -106,7 +107,7 @@ if st.button("Predict"):
     else:
         #shap.force_plot(explainer_shap.expected_value[0], shap_values[:,:,0], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
         shap.force_plot(expected_value_class, 
-                        shap_values_class[0, :],           # 一维 SHAP 值
+                        shap_values_class[1, :],           # 一维 SHAP 值
                         pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
                         matplotlib=True,
                         show=True

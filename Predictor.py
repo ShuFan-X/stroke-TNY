@@ -37,16 +37,16 @@ L = st.number_input("淋巴细胞", min_value=0, max_value=50, value=1)
 NLR = N/L
 Bun = st.number_input("尿素", min_value=0, max_value=50, value=1)
 
-anti-aggregation = st.selectbox("抗聚史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
+antiaggregation = st.selectbox("抗聚史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
 antihypertensive = st.selectbox("降压史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-lipid-lowering = st.selectbox("调脂史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
+lipid_lowering = st.selectbox("调脂史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
 
 
 
 
 
 
-feature_values = [TNY, LAA, SAO, AGE, Hypertension, Smoke, NIHSS, mRS, NLR, L, Bun, anti-aggregation, antihypertensive, lipid-lowering]
+feature_values = [TNY, LAA, SAO, AGE, Hypertension, Smoke, NIHSS, mRS, NLR, L, Bun, antiaggregation, antihypertensive, lipid_lowering]
 features = np.array([feature_values])
 
 if st.button("Predict"):
@@ -57,7 +57,7 @@ if st.button("Predict"):
     probability = predicted_proba[predicted_class] * 100
     # 如果预测类别为1（高风险）
     if predicted_class == 1:
-        advice =
+        advice =(
             f"根据我们的模型，该患者本次卒中预后不良的风险较高。 "
             f"具体预后不良的可能性为 {probability:.1f}%。"
             "建议进一步评估该患者的风险因素，针对性加强预防与治疗干预措施。"
@@ -129,7 +129,7 @@ if st.button("Predict"):
     lime_exp = lime_explainer.explain_instance(
         data_row=features.flatten(),
         predict_fn=model.predict_proba,
-        num_features=13
+        num_features=14
     )
 
     # Display the LIME explanation without the feature value table

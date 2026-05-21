@@ -30,8 +30,8 @@ Smoke = st.selectbox("吸烟史", options=[0, 1], format_func=lambda x:"否"if x
 
 NIHSS = st.sidebar.slider("入院NIHSS", min_value=0, max_value=42, value=0, step=1)
 mRS = st.sidebar.slider("入院mRS", min_value=0, max_value=42, value=0, step=1)
-N = st.number_input("中性粒细胞", min_value=0, max_value=50, value=0.01)
-L = st.number_input("淋巴细胞", min_value=0, max_value=50, value=0.01)
+N = st.number_input("中性粒细胞", min_value=0.01, max_value=50, value=0.01)
+L = st.number_input("淋巴细胞", min_value=0.01, max_value=50, value=0.01)
 NLR = N/L
 Bun = st.number_input("尿素", min_value=0, max_value=50, value=1)
 

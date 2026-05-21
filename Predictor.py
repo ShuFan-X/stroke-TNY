@@ -98,7 +98,7 @@ if st.button("Predict"):
                         shap_values_class[1, :],           # 一维 SHAP 值
                         pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
                         matplotlib=True,
-                        show=True
+                        show=False
                        )
     # 期望值（基线值）
     #解释类别 0（未患病）的 SHAP 值
@@ -110,7 +110,7 @@ if st.button("Predict"):
                         shap_values_class[1, :],           # 一维 SHAP 值
                         pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
                         matplotlib=True,
-                        show=True
+                        show=False
                        )    
     plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)
     st.image("shap_force_plot.png", caption='SHAP Force Plot Explanation')

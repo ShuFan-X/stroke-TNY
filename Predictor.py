@@ -6,10 +6,8 @@ import shap
 import matplotlib.pyplot as plt
 from lime.lime_tabular import LimeTabularExplainer
 #pip install xgboost==2.0.3 --no-deps
-#import xgboost
-#model = xgboost.Booster()
-#model.load_model('XGB.json')
-df2 =pd.read_csv('x_test.csv')
+
+df2 =pd.read_csv('stroke-TNY-x_test.csv.csv')
 x_test = df2[['通脑饮', 'LAA', 'SAO', '年龄', '高血压', '吸烟史', '入院NIHSS', '入院mRS', 'NLR', '淋巴细胞', '尿素', '抗聚史', '降压史', '调脂史']]
 
 model = joblib.load('XGB.pkl')

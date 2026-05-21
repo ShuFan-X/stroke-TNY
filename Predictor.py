@@ -2,8 +2,11 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd 
-import shap
 import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei']
+plt.rcParams['axes.unicode_minus'] = False
+import shap
+
 from lime.lime_tabular import LimeTabularExplainer
 #pip install xgboost==2.0.3 --no-deps
 plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'DejaVu Sans', 'SimHei', 'Arial Unicode MS']

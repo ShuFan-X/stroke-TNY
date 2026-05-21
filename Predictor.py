@@ -28,8 +28,8 @@ AGE = st.number_input("年龄", min_value=0, max_value=120, value=1)
 Hypertension = st.selectbox("高血压", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
 Smoke = st.selectbox("吸烟史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
 
-NIHSS = st.sidebar.slider("入院NIHSS", min_value=0, max_value=42, value=0, step=1)
-mRS = st.sidebar.slider("入院mRS", min_value=0, max_value=42, value=0, step=1)
+NIHSS = st.number_input("入院NIHSS", min_value=0, max_value=42, value=0, step=1)
+mRS = st.number_input("入院mRS", min_value=0, max_value=42, value=0, step=1)
 N = st.number_input("中性粒细胞", min_value=0.01, max_value=50.00, value=0.01)
 L = st.number_input("淋巴细胞", min_value=0.01, max_value=50.00, value=0.01)
 NLR = N/L

@@ -16,7 +16,7 @@ x_test = df2[['通脑饮', 'LAA', 'SAO', '年龄', '高血压', '吸烟史', '�
 
 model = joblib.load('stroke-TNY.pkl')
 
-feature_names = ['通脑饮', 'LAA', 'SAO', '年龄', '高血压', '吸烟史', '入院NIHSS', '入院mRS', 'NLR', '淋巴细胞', '尿素', '抗聚', '降压', '调脂']
+feature_names = ['TNY', 'LAA', 'SAO', 'AGE', 'Hypertension', 'Smoke', 'admissionNIHSS', 'admissionmRS', 'NLR', 'L', 'Bun', 'antiaggregation', 'antihypertensive', 'lipid_lowering']
     
     
 # 设置 Streamlit 应用的标题

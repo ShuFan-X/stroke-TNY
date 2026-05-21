@@ -72,46 +72,36 @@ if st.button("Predict"):
     st.write(advice)
     # SHAP 解释
     st.subheader("SHAP 力图解释")
-    explainer_shap = shap.TreeExplainer(model)
-    plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'DejaVu Sans']
-    plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
+    explainer = shap.TreeExplainer(model)
+
+    # 将当前输入转换为 DataFrame（保留特征名）
+    input_df = pd.DataFrame([feature_values], columns=feature_names)
     
-    explainer = shap.TreeExplainer(model)  # 直接传入模型
-    shap_values = explainer.shap_values(x_test)   # 或 explainer(x_test) 返回 Explanation 对象
-    shap_values_numpy = shap_values
-    #shap_interaction_values = explainer.shap_interaction_values(x_test)
-    explanation = shap.Explanation(
-    values=shap_values,           # 您的 SHAP 值数组
-    base_values=explainer.expected_value,  # 如果是二分类且针对正类，可能需取对应值
-    data=x_test.values,            # 特征值（用于着色）
-    feature_names=x_test.columns.tolist()
+    # 计算当前样本的 SHAP 值
+    shap_values_sample = explainer.shap_values(input_df)
+    
+    # shap_values_sample 的常见形状：
+    # - 对于二分类 XGBoost/RandomForest：list，长度为2，每个元素 shape (1, n_features)
+    # - 或者直接是 array，shape (1, n_features, 2)
+    if isinstance(shap_values_sample, list):
+        # 根据预测类别取出对应类别的 SHAP 值（一维数组）
+        shap_values_for_class = shap_values_sample[predicted_class][0]  # [0] 去掉样本维度
+    else:
+        # 假设 shape (1, n_features, n_classes)
+        shap_values_for_class = shap_values_sample[0, :, predicted_class]
+    
+    # 获取对应类别的期望值（基线值）
+    expected_value_class = explainer.expected_value[predicted_class]
+    
+    # 绘制力图
+    shap.force_plot(
+        expected_value_class,
+        shap_values_for_class,
+        input_df,
+        matplotlib=True,
+        show=False
     )
 
-    
-    #shap_values = explainer_shap(pd.DataFrame([feature_values], columns=feature_names))
-    class_index = 1  # 二分类时正类通常为 1
-    expected_value_class = explainer.expected_value[class_index]  # 标量
-    shap_values_class = shap_values_numpy[:, :, class_index] 
-    if predicted_class == 1:
-        #shap.plots.force(explainer_shap.expected_value[1],shap_values[:,:,1], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
-        shap.force_plot(expected_value_class, 
-                        shap_values_class[1, :],           # 一维 SHAP 值
-                        pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
-                        matplotlib=True,
-                        show=False
-                       )
-    # 期望值（基线值）
-    #解释类别 0（未患病）的 SHAP 值
-    # 特征值数据
-    # 使用 Matplotlib 绘图
-    else:
-        #shap.force_plot(explainer_shap.expected_value[0], shap_values[:,:,0], pd.DataFrame([feature_values], columns=feature_names), matplotlib=True)
-        shap.force_plot(expected_value_class, 
-                        shap_values_class[1, :],           # 一维 SHAP 值
-                        pd.DataFrame([feature_values], columns=feature_names),                 # 对应样本的特征值      # 特征名（可选，但建议提供）
-                        matplotlib=True,
-                        show=False
-                       )    
     plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)
     st.image("shap_force_plot.png", caption='SHAP Force Plot Explanation')
 

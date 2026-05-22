@@ -23,14 +23,14 @@ feature_names = ['TNY', 'LAA', 'SAO', 'AGE', 'Hypertension', 'Smoke', 'admission
 st.title("卒中诊断模型")
 st.sidebar.header("Selection Panel") # 则边栏的标题
 st.sidebar.subheader("Picking up paraneters")
-TNY = st.selectbox("通脑饮", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-LAA = st.selectbox("LAA", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-SAO = st.selectbox("SAO", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
+TNY = st.selectbox("通脑饮", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
+LAA = st.selectbox("LAA", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
+SAO = st.selectbox("SAO", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
 
 AGE = st.number_input("年龄", min_value=0, max_value=120, value=1)
 
-Hypertension = st.selectbox("高血压", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-Smoke = st.selectbox("吸烟史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
+Hypertension = st.selectbox("高血压", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
+Smoke = st.selectbox("吸烟史", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
 
 NIHSS = st.number_input("入院NIHSS", min_value=0, max_value=42, value=0, step=1)
 mRS = st.number_input("入院mRS", min_value=0, max_value=42, value=0, step=1)
@@ -39,9 +39,9 @@ L = st.number_input("淋巴细胞", min_value=0.01, max_value=50.00, value=0.01)
 NLR = N/L
 Bun = st.number_input("尿素", min_value=0, max_value=50, value=1)
 
-antiaggregation = st.selectbox("抗聚史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-antihypertensive = st.selectbox("降压史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
-lipid_lowering = st.selectbox("调脂史", options=[0, 1], format_func=lambda x:"否"if x == 1 else "是")
+antiaggregation = st.selectbox("抗聚史", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
+antihypertensive = st.selectbox("降压史", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
+lipid_lowering = st.selectbox("调脂史", options=[0, 1], format_func=lambda x:"是"if x == 1 else "否")
 
 
 

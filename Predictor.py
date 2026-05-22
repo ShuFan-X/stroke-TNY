@@ -108,23 +108,3 @@ if st.button("Predict"):
 
     plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)
     st.image("shap_force_plot.png", caption='SHAP Force Plot Explanation')
-
-    # LIME Explanation
-    st.subheader("LIME 局部解释")
-    lime_explainer = LimeTabularExplainer(
-        training_data=x_test.values, 
-        feature_names=x_test.columns.tolist(),
-        class_names=['预后良好', '预后不良'],# Adjust class names to match your classification task
-        mode='classification'
-    )
-
-    #Explain the instance
-    lime_exp = lime_explainer.explain_instance(
-        data_row=features.flatten(),
-        predict_fn=model.predict_proba,
-        num_features=14
-    )
-
-    # Display the LIME explanation without the feature value table
-    lime_html = lime_exp.as_html(show_table=True) # Disable feature value table
-    st.components.v1.html(lime_html, height=800,scrolling=True)
